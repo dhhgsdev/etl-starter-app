@@ -2,3 +2,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://cdn.jsdelivr.net/npm/@vscode/codicons/dist/codicon.css');
+
+/* Base Styling */
+html,
+body {
+  @apply bg-[#1c1c1c] text-gray-200 text-sm leading-relaxed;
+  font-family: 'codicon', sans-serif;
+  min-height: 100%;
+}
+
+/* Headings */
+h1 {
+  @apply text-2xl font-bold text-white;
+}
+h2 {
+  @apply text-lg font-semibold text-white;
+}
+h3 {
+  @apply text-base font-medium text-white;
+}
+
+/* Links */
+a {
+  @apply text-gray-300 hover:text-white no-underline text-sm font-semibold transition-colors duration-150;
+}
+
+/* Tables */
+table {
+  @apply w-full table-auto border-collapse;
+}
+th {
+  @apply text-left px-4 py-2 font-semibold bg-[#2c2c2c] text-white border-b border-gray-700;
+}
+td {
+  @apply px-4 py-2 border-b border-gray-800;
+}
+
+/* Cards */
+.card {
+  @apply bg-[#1f1f1f] border border-gray-700 rounded-md p-4;
+}
+
+/* Buttons */
+button {
+  @apply px-3 py-2 rounded bg-gray-700 hover:bg-gray-600 text-white text-sm font-medium transition;
+}
+
+/* Global Transitions */
+* {
+  @apply transition-colors duration-100;
+}
