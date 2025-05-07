@@ -1,76 +1,52 @@
 'use client'
 
-import { useDropzone } from 'react-dropzone'
-import Papa from 'papaparse'
-import { useState } from 'react'
+import { useRef } from 'react'
 
-export default function FileUpload({
-  onDataParsed,
-  disabled = false,
-}: {
+interface FileUploadProps {
   onDataParsed: (data: any[]) => void
   disabled?: boolean
-}) {
-  const [fileName, setFileName] = useState<string | null>(null)
+}
 
-  const onDrop = (acceptedFiles: File[]) => {
-    if (disabled) return
+export default function FileUpload({ onDataParsed, disabled }: FileUploadProps) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null)
 
-    const file = acceptedFiles[0]
-    setFileName(`${file.name} (${(file.size / 1024).toFixed(1)} KB)`)
+  const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
 
-    Papa.parse(file, {
-      header: true,
-      skipEmptyLines: true,
-      complete: (results) => {
-        onDataParsed(results.data as any[])
-      },
+    const text = await file.text()
+    const rows = text.split('\n').filter(Boolean)
+    const headers = rows[0].split(',').map((h) => h.trim())
+    const data = rows.slice(1).map((row) => {
+      const values = row.split(',')
+      const entry: Record<string, string> = {}
+      headers.forEach((key, i) => {
+        entry[key] = values[i]?.trim() ?? ''
+      })
+      return entry
     })
+
+    onDataParsed(data)
   }
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
-    onDrop,
-    disabled,
-  })
-
   return (
-    <div className="w-full">
-      <div {...getRootProps()} className="focus:outline-none">
-        <input {...getInputProps()} disabled={disabled} />
-
-        {/* Visual dropzone (no dashed outer border) */}
-        <div
-          className={`w-full p-4 rounded-md text-center transition ${
-            disabled
-              ? 'bg-[#0f0f0f] text-gray-500 cursor-not-allowed opacity-60'
-              : 'bg-[#0f0f0f] hover:bg-[#1a1a1a] text-white cursor-pointer'
-          }`}
-        >
-          {disabled ? (
-            <p>Please select a supplier first.</p>
-          ) : fileName ? (
-            <div className="space-y-1">
-              <p className="font-medium">
-                📄 <span className="font-semibold">{fileName}</span> loaded
-              </p>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation()
-                  setFileName(null)
-                  onDataParsed([])
-                }}
-                className="mt-2 text-sm text-white hover:no-underline bg-[#0f0f0f]"
-              >
-                ⛔ Clear File
-              </button>
-            </div>
-          ) : isDragActive ? (
-            <p className="text-blue-500">Drop the file here...</p>
-          ) : (
-            <p>Drag and drop a CSV file here, or click to select one</p>
-          )}
-        </div>
-      </div>
+    <div
+      className={`flex flex-col items-center justify-center p-6 border-2 border-dashed rounded cursor-pointer transition-colors bg-surfaceAlt border-gray-600 hover:bg-surfaceHover ${
+        disabled ? 'opacity-50 cursor-not-allowed' : ''
+      }`}
+      onClick={() => !disabled && fileInputRef.current?.click()}
+    >
+      <input
+        ref={fileInputRef}
+        type="file"
+        accept=".csv"
+        onChange={handleFileChange}
+        className="hidden"
+        disabled={disabled}
+      />
+      <p className="text-sm text-gray-400 text-center">
+        {disabled ? 'Select a supplier first' : 'Click to upload CSV'}
+      </p>
     </div>
   )
 }

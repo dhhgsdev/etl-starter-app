@@ -1,11 +1,16 @@
+// tailwind.config.js
 module.exports = {
-  darkMode: 'class', // enables toggling via `dark` class
-  content: [
-    "./app/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}"
-  ],
+  content: ['./app/**/*.{ts,tsx}', './components/**/*.{ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        background: '#171717',
+        surface: '#1f1f1f',
+        surfaceAlt: '#232323',
+        surfaceHover: '#2a2a2a',
+      },
+    },
   },
   plugins: [],
 }
+

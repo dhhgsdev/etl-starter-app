@@ -1,4 +1,3 @@
-// app/layout.tsx
 'use client'
 
 import './globals.css'
@@ -27,9 +26,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   return (
     <html lang="en" className="dark h-full">
-      <body className="flex flex-col min-h-screen bg-[#1c1c1c] text-white">
+      <body className="flex flex-col min-h-screen bg-background text-white">
         {/* Mobile Top Bar */}
-        <header className="flex items-center justify-between px-4 py-3 bg-[#1c1c1c] border-b border-slate-700 sm:hidden">
+        <header className="flex items-center justify-between px-4 py-3 bg-background border-b border-gray-700 sm:hidden">
           <span className="text-lg font-semibold">ETL App</span>
           <button
             onClick={() => setShowSidebar(!showSidebar)}
@@ -39,10 +38,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </button>
         </header>
 
-        <div className="flex flex-1 gap-0 sm:gap-0">
+        <div className="flex flex-1">
           {/* Sidebar */}
           <aside
-            className={`fixed z-40 top-0 left-0 h-full w-60 bg-[#1c1c1c] border-r border-slate-700 transform transition-transform duration-200
+            className={`fixed z-40 top-0 left-0 h-screen w-60 bg-background border-r border-gray-700 transform transition-transform duration-200
               ${showSidebar ? 'translate-x-0' : '-translate-x-full'}
               sm:translate-x-0 sm:relative sm:z-auto`}
           >
@@ -57,10 +56,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   <Link
                     key={href}
                     href={href}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-md transition ${isActive
-                        ? 'bg-[#2c2c2c] text-white border-l-4 border-green-500'
+                    className={`flex items-center gap-3 px-3 py-2 rounded-md transition ${
+                      isActive
+                        ? 'bg-[#2c2c2c] text-white border-l-4 border-red-700'
                         : 'hover:text-white'
-                      }`}
+                    }`}
                   >
                     {icon}
                     <span className="truncate">{label}</span>
@@ -78,10 +78,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             />
           )}
 
-          {/* Main Content */}
-          <main className="flex-1 min-h-screen bg-[#1c1c1c] px-4 sm:px-6 py-6">
-            {children}
-          </main>
+          {/* Main Content Wrapper to avoid border merging */}
+          <div className="flex-1 bg-background min-h-screen">
+            <main className="px-4 sm:px-6 py-6">
+              {children}
+            </main>
+          </div>
         </div>
       </body>
     </html>

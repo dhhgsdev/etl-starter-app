@@ -7,8 +7,8 @@
 /* Base Styling */
 html,
 body {
-  @apply bg-[#1c1c1c] text-gray-200 text-sm leading-relaxed;
-  font-family: 'codicon', sans-serif;
+  @apply bg-background text-gray-200 text-sm leading-relaxed;
+  font-family: 'Inter', sans-serif;
   min-height: 100%;
 }
 
@@ -33,7 +33,7 @@ table {
   @apply w-full table-auto border-collapse;
 }
 th {
-  @apply text-left px-4 py-2 font-semibold bg-[#2c2c2c] text-white border-b border-gray-700;
+  @apply text-left px-4 py-2 font-semibold bg-surface text-white border-b border-gray-700;
 }
 td {
   @apply px-4 py-2 border-b border-gray-800;
@@ -41,7 +41,7 @@ td {
 
 /* Cards */
 .card {
-  @apply bg-[#1f1f1f] border border-gray-700 rounded-md p-4;
+  @apply bg-surface border border-gray-700 rounded-md p-4;
 }
 
 /* Buttons */
