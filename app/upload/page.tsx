@@ -45,7 +45,7 @@ export default function UploadPage() {
   return (
     <div className="flex min-h-screen bg-background text-white px-6 py-6 gap-6">
       {/* Sidebar */}
-      <aside className="w-1/4 pr-6 border-r border-gray-700 bg-background">
+      <aside className="w-1/3 bg-background">
         <div className="flex flex-col gap-6">
           <div className="bg-surface ring-1 ring-gray-700 rounded-md p-4">
             <label className="block text-sm mb-2">Select Supplier</label>
@@ -65,7 +65,7 @@ export default function UploadPage() {
 
           <div className="bg-surface ring-1 ring-gray-700 rounded-md p-4">
             <label className="block text-sm mb-2">Upload CSV</label>
-            <div className="w-full p-4 border-2 border-dashed rounded bg-surfaceAlt border-gray-700 text-center text-gray-400">
+            <div className="w-full p-4 border-2 border-none rounded bg-surfaceAlt border-gray-700 text-center text-gray-400">
               <FileUpload onDataParsed={setParsedData} disabled={!selectedSupplier} />
             </div>
           </div>
@@ -82,7 +82,7 @@ export default function UploadPage() {
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 pl-6 flex flex-col gap-6">
+      <main className="flex-1 flex flex-col gap-6 bg-background pl-6">
         <Tabs defaultValue="preview" value={tab} onValueChange={setTab}>
           <TabsList className="mb-4 border border-gray-700 rounded-md">
             <TabsTrigger value="preview">Preview</TabsTrigger>
