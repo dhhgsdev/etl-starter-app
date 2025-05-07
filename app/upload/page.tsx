@@ -74,19 +74,22 @@ export default function UploadPage() {
             </pre>
           </div>
 
-          {/* Upload CSV - moved below */}
-          <div className="bg-surface border border-gray-700 rounded-md p-4">
-            <label className="block text-sm mb-2">Upload CSV</label>
-            <div className="w-full p-4 border-2 border-none rounded border-gray-700 text-center text-gray-400">
-              <FileUpload onDataParsed={setParsedData} disabled={!selectedSupplier} />
+          {/* Upload CSV - only show if ETL map exists */}
+          {etlMap && (
+            <div className="bg-surface border border-gray-700 rounded-md p-4">
+              <label className="block text-sm mb-2">Upload CSV</label>
+              <div className="w-full p-4 border-2 border-none border-gray-700 text-center text-gray-400">
+                <FileUpload onDataParsed={setParsedData} disabled={!selectedSupplier} />
+              </div>
             </div>
-          </div>
+          )}
+
         </div>
       </aside>
 
 
       {/* Main Content */}
-      <main className="flex-1 pl-6 flex flex-col gap-6">
+      <main className="flex-1 pl-6 flex flex-col px-6 py-6 gap-6">
         <Tabs defaultValue="preview" value={tab} onValueChange={setTab}>
           <TabsList className="mb-4 border border-gray-700 rounded-md">
             <TabsTrigger value="preview">Preview</TabsTrigger>
