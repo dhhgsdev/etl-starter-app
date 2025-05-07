@@ -45,9 +45,10 @@ export default function UploadPage() {
   return (
     <div className="flex min-h-screen bg-background text-white px-6 py-6 gap-6">
       {/* Sidebar */}
-      <aside className="w-1/3 bg-background">
-        <div className="flex flex-col gap-6">
-          <div className="bg-surface ring-1 ring-gray-700 rounded-md p-4">
+      <aside className="w-1/4 border-gray-700 bg-background px-6 py-6">
+        <div className="flex flex-col space-y-6">
+          {/* Select Supplier */}
+          <div className="bg-surface border border-gray-700 rounded-md p-4">
             <label className="block text-sm mb-2">Select Supplier</label>
             <select
               value={selectedSupplier}
@@ -63,14 +64,8 @@ export default function UploadPage() {
             </select>
           </div>
 
-          <div className="bg-surface ring-1 ring-gray-700 rounded-md p-4">
-            <label className="block text-sm mb-2">Upload CSV</label>
-            <div className="w-full p-4 border-2 border-none rounded bg-surfaceAlt border-gray-700 text-center text-gray-400">
-              <FileUpload onDataParsed={setParsedData} disabled={!selectedSupplier} />
-            </div>
-          </div>
-
-          <div className="bg-surface ring-1 ring-gray-700 rounded-md p-4">
+          {/* Loaded ETL Map - moved up */}
+          <div className="bg-surface border border-gray-700 rounded-md p-4">
             <label className="block text-sm mb-2">Loaded ETL Map</label>
             <pre className="text-xs text-gray-300 bg-surfaceAlt p-3 rounded overflow-x-auto border border-gray-700">
               {etlMap?.source_to_target
@@ -78,11 +73,20 @@ export default function UploadPage() {
                 : 'No ETL map loaded.'}
             </pre>
           </div>
+
+          {/* Upload CSV - moved below */}
+          <div className="bg-surface border border-gray-700 rounded-md p-4">
+            <label className="block text-sm mb-2">Upload CSV</label>
+            <div className="w-full p-4 border-2 border-none rounded border-gray-700 text-center text-gray-400">
+              <FileUpload onDataParsed={setParsedData} disabled={!selectedSupplier} />
+            </div>
+          </div>
         </div>
       </aside>
 
+
       {/* Main Content */}
-      <main className="flex-1 flex flex-col gap-6 bg-background pl-6">
+      <main className="flex-1 pl-6 flex flex-col gap-6">
         <Tabs defaultValue="preview" value={tab} onValueChange={setTab}>
           <TabsList className="mb-4 border border-gray-700 rounded-md">
             <TabsTrigger value="preview">Preview</TabsTrigger>
@@ -92,7 +96,7 @@ export default function UploadPage() {
 
           <TabsContent value="preview">
             {parsedData.length > 0 ? (
-              <div className="bg-surface border border-gray-700 rounded-md p-4 h-[60vh] overflow-auto">
+              <div className="bg-surface border border-gray-700 rounded-md p-4 max-h-[60vh] overflow-auto">
                 <table className="min-w-full text-sm text-left text-gray-200">
                   <thead className="bg-surfaceAlt text-gray-400 text-xs uppercase">
                     <tr>
@@ -125,13 +129,13 @@ export default function UploadPage() {
           </TabsContent>
 
           <TabsContent value="mapping">
-            <div className="bg-surface border border-gray-700 rounded-md p-4 h-[60vh] overflow-auto">
+            <div className="bg-surface border border-gray-700 rounded-md p-4 max-h-[60vh] overflow-auto">
               <p className="text-gray-400">Field mapping interface...</p>
             </div>
           </TabsContent>
 
           <TabsContent value="validation">
-            <div className="bg-surface border border-gray-700 rounded-md p-4 h-[60vh] overflow-auto">
+            <div className="bg-surface border border-gray-700 rounded-md p-4 max-h-[60vh] overflow-auto">
               <p className="text-gray-400">Validation results...</p>
             </div>
           </TabsContent>
