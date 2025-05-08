@@ -54,11 +54,10 @@ button {
   @apply transition-colors duration-100;
 }
 
-/* globals.css or a relevant imported CSS file */
-
+/* Scrollbar styling (WebKit browsers like Chrome, Edge, Safari) */
 ::-webkit-scrollbar {
   height: 4px;
-  width: 8px;
+  width: 4px;
 }
 
 ::-webkit-scrollbar-track {
@@ -73,3 +72,10 @@ button {
 ::-webkit-scrollbar-thumb:hover {
   background-color: #777;
 }
+
+/* Firefox scrollbar support */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #555 #1f1f1f;
+}
+
