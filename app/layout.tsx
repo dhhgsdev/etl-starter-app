@@ -79,7 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           )}
 
           {/* Main Content Wrapper to avoid border merging */}
-          <div className="flex-1 bg-background min-h-screen">
+          <div className="flex-1 bg-background min-h-screen overflow-x-auto">
             <main className="px-4 sm:px-6 py-6">
               {children}
             </main>

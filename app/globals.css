@@ -53,3 +53,23 @@ button {
 * {
   @apply transition-colors duration-100;
 }
+
+/* globals.css or a relevant imported CSS file */
+
+::-webkit-scrollbar {
+  height: 4px;
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1f1f1f;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #555;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #777;
+}
