@@ -13,6 +13,8 @@ export default function UploadPage() {
   const [etlMap, setEtlMap] = useState<any | null>(null)
   const [tab, setTab] = useState('preview')
   const [validationResults, setValidationResults] = useState<any[]>([])
+  const [hasViewedValidation, setHasViewedValidation] = useState(false)
+
 
   useEffect(() => {
     const fetchSuppliers = async () => {
@@ -25,7 +27,14 @@ export default function UploadPage() {
 
   useEffect(() => {
     const fetchETLMap = async () => {
-      if (!selectedSupplier) return setEtlMap(null)
+      if (!selectedSupplier) {
+        setEtlMap(null)
+        setParsedData([])
+        setValidationResults([])
+        setHasViewedValidation(false)
+        return
+      }
+
       const { data, error } = await supabase
         .from('etl_supplier_maps')
         .select('*')
@@ -36,10 +45,17 @@ export default function UploadPage() {
       if (error) {
         console.error('Error fetching ETL map:', error)
         setEtlMap(null)
+        setParsedData([])
+        setValidationResults([])
+        setHasViewedValidation(false)
       } else {
         setEtlMap(data)
+        setParsedData([])
+        setValidationResults([])
+        setHasViewedValidation(false)
       }
     }
+
     fetchETLMap()
   }, [selectedSupplier])
 
@@ -164,7 +180,10 @@ export default function UploadPage() {
 
       {/* Main Content */}
       <main className="flex-1 flex flex-col gap-6 overflow-x-auto">
-        <Tabs defaultValue="preview" value={tab} onValueChange={setTab}>
+        <Tabs defaultValue="preview" value={tab} onValueChange={(value) => {
+          setTab(value)
+          if (value === 'validation') setHasViewedValidation(true)
+        }}>
           <TabsList className="mb-4 border border-gray-700 rounded-md flex sm:inline-flex w-full sm:w-auto">
             <TabsTrigger value="preview" className="flex-1 sm:flex-none text-center">
               Preview
